@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import './base.css';
+
+/* ScrumFlow palette — midnight with violet & magenta */
+:root {
+  --font: 'Manrope', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Manrope', sans-serif;
+  --bg: #0f0d17;
+  --surface: #18152a;
+  --input-bg: #120f20;
+  --text: #ece9f7;
+  --muted: #8f88aa;
+  --border: #2a2542;
+  --hover: #221e38;
+  --primary: #a78bfa;
+  --primary-soft: rgba(167, 139, 250, 0.16);
+  --on-primary: #120f20;
+  --ok: #34d399;
+  --ok-soft: rgba(52, 211, 153, 0.14);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.14);
+  --danger: #fb7185;
+  --danger-soft: rgba(251, 113, 133, 0.15);
+  --magenta: #f472b6;
+  --radius: 14px;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+.rail {
+  border-right: 1px solid var(--border);
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, #151225, #0f0d17);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  padding: 0 8px;
+}
+.brand b {
+  color: var(--primary);
+}
+.logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--magenta));
+  color: #120f20;
+}
+.workspace {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--surface);
+}
+.workspace small {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  display: block;
+}
+.rail nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rail nav a {
+  color: var(--muted);
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.rail nav a:hover {
+  color: var(--text);
+  background: var(--hover);
+}
+.rail nav a.active {
+  color: var(--text);
+  background: var(--primary-soft);
+}
+.rail nav a.active .ico {
+  color: var(--primary);
+}
+.ico {
+  width: 18px;
+  text-align: center;
+}
+.rail-foot {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.content {
+  padding: 30px 34px;
+  min-width: 0;
+}
+@media (max-width: 860px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .rail {
+    position: static;
+    height: auto;
+  }
+  .rail nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .rail nav a {
+    white-space: nowrap;
+  }
+}
+.page-head h1 {
+  font-size: 28px;
+}
+
+/* Kanban */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 14px;
+  overflow-x: auto;
+  align-items: start;
+}
+.column {
+  background: #141124;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 420px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.column.over {
+  border-color: var(--primary);
+  background: #1b1730;
+}
+.column-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 4px 12px;
+  font-weight: 700;
+}
+.column-head .count {
+  font-size: 11px;
+  background: var(--hover);
+  border-radius: 99px;
+  padding: 2px 8px;
+  color: var(--muted);
+}
+.ticket {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: grab;
+  transition: transform 0.1s, border-color 0.15s;
+}
+.ticket:hover {
+  border-color: #3d3660;
+  transform: translateY(-1px);
+}
+.ticket.dragging {
+  opacity: 0.4;
+}
+.ticket .t-title {
+  font-weight: 600;
+  margin: 6px 0 10px;
+}
+.ticket .t-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.key {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.pts {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--hover);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+.type-story {
+  color: var(--ok);
+}
+.type-bug {
+  color: var(--danger);
+}
+.type-task {
+  color: var(--primary);
+}
+.type-spike {
+  color: var(--warn);
+}
+.mini-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #120f20;
+}
+
+/* Risk heat map */
+.heat {
+  display: grid;
+  grid-template-columns: 26px repeat(5, 1fr);
+  gap: 5px;
+}
+.heat .cell {
+  aspect-ratio: 1.6;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: #120f20;
+}
+.heat .axis {
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+.ac-list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.sprint-card {
+  border-left: 3px solid var(--border);
+}
+.sprint-card.active {
+  border-left-color: var(--primary);
+}
+.sprint-card.completed {
+  border-left-color: var(--ok);
+}
+
+/* Login */
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(800px 400px at 15% 10%, rgba(167, 139, 250, 0.22), transparent 60%),
+    radial-gradient(700px 400px at 90% 90%, rgba(244, 114, 182, 0.16), transparent 60%), var(--bg);
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  display: grid;
+  gap: 16px;
+}
+.status-report {
+  background: #fff;
+  color: #1d1b26;
+  padding: 26px;
+  border-radius: 10px;
+}
+.status-report h2 {
+  font-family: var(--font-display);
+}
+.status-report table td,
+.status-report table th {
+  border-bottom: 1px solid #e5e3ee;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 13px;
+}
+.status-report table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.rag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-weight: 800;
+  font-size: 12px;
+}
+@media print {
+  .rail,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .content {
+    padding: 0;
+  }
+}
